@@ -37,6 +37,6 @@
     @empty
         <p class="text-sm text-gray-500">is empty</p>
     @endforelse
-
+    
 </body>
 </html>

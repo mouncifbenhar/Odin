@@ -40,7 +40,7 @@
         @endif
 
         <p class="text-xs text-center text-gray-500">
-            Don’t have an account?
+            Don't have an account?
             <a href="/register" class="underline">Register</a>
         </p>
     </form>

@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-       
-      Schema::create('link_tag', function (Blueprint $table) {
-      $table->foreignId('lien_id')->constrained('liens')->onDelete('CASCADE');
-      $table->foreignId('tag_id')->constrained('tags')->onDelete('CASCADE');
-      
-    });
+        Schema::create('user_role', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('role_id')->constrained('roles')->cascadeOnDelete();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -24,7 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('link_tag');
+        Schema::dropIfExists('user_role');
     }
 };
-

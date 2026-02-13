@@ -7,7 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 text-gray-800 min-h-screen p-6 max-w-xl mx-auto space-y-8">
-
+   @if(auth()->user()->role->contains('role', 'admin'))
+    <a href="/A_dashboard" class="text-sm text-yellow-600 underline">manage</a>
+     @endif
     <!-- Navigation -->
     <nav class="space-y-2">
         <a href="/categories_page" class="block text-sm underline">
@@ -38,13 +40,15 @@
         </p>
     @endif
 
-    <!-- Logout -->
+    <a href="/bin_page" class="text-sm text-red-600 underline">Trash</a>
+
     <form action="/logout" method="POST">
         @csrf
         <button class="text-sm text-red-600 underline">
             Logout
         </button>
     </form>
-
+  
 </body>
 </html>
+

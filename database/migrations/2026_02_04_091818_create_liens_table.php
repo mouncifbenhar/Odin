@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('liens', function (Blueprint $table) {
+        Schema::create('liens', function (Blueprint $table){
             $table->id();
             $table->string('title');
             $table->string('lien');
@@ -19,6 +19,7 @@ return new class extends Migration
                   ->constrained('users');
             $table->foreignId('categories_id')
                   ->constrained('categories')->cascadeOnDelete();
+            $table->softDeletes();      
             $table->timestamps();  
         });
     }
@@ -29,5 +30,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('liens');
+        Schema::dropsoftDeletes();
     }
 };

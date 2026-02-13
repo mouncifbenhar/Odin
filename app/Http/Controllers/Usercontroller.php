@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+
 class Usercontroller extends Controller
 {
 
@@ -35,6 +36,7 @@ public function index(){
                 'password' => 'required'
         ]);
         $user = User::create($incomingFields);
+        $user->role()->attach([2]);
         auth()->login($user);
         return redirect('/dashboard');
     }
@@ -42,5 +44,6 @@ public function index(){
         auth()->logout();
         return redirect('/');
     }
-   
+    
+     
 }

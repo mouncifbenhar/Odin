@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Symfony\Component\CssSelector\Node\FunctionNode;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Lien extends Model
 {
+    use SoftDeletes;
       protected $fillable = [
         'title',
         'lien',
@@ -15,5 +16,8 @@ class Lien extends Model
     ];
     public function tags(){
         return $this->belongsToMany(Tag::class,'link_tag');
+    }
+    public function user(){
+        return $this->belongsToMany(User::class,'user_link')->withPivot('access_type');
     }
 }

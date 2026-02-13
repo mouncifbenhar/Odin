@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lien;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class liencontroller extends Controller
@@ -24,13 +25,22 @@ class liencontroller extends Controller
         return view('liens',compact('categories', 'liens','tags'));
     }
      public function delete_lien(Lien $lien){
+
+        
+         if($lien->trashed()){
+              $lien->forceDelete();
+              return redirect()->back();
+             
+         }
+           
          $lien->delete();
          return redirect()->back()->with('success', 'lien was delete successfully');
     }
     public function show_tag(Lien $lien){
         $tags = auth()->user()->tags()->get();
         $tags_to_link = $lien->tags()->get();
-        return view('add_tag_to_lien',compact('tags','lien','tags_to_link'));
+        $sherdusers = User::all();
+        return view('add_tag_to_lien',compact('tags','lien','tags_to_link','sherdusers'));
         
     }
     public function assign(Request $request,Lien $lien){
@@ -39,7 +49,7 @@ class liencontroller extends Controller
             'tag_id' => 'required'
          ]);
          
-         $lien->tags()->attach([$incomingFields]);
+         $lien->tags()->syncWithoutDetaching([$incomingFields]);
 
          return redirect()->back()->with('success', 'tag was add successfully');
     }
@@ -61,6 +71,15 @@ class liencontroller extends Controller
         $tags = auth()->user()->tags()->get();
         $categories = auth()->user()->categories()->get();
         return view('liens',compact('categories', 'liens','tags'));
+    }
+
+    public function bin_page(){
+        $bin_links = auth()->user()->lines()->onlyTrashed()->get(); 
+        return view('bin',compact('bin_links'));
+    }
+    public function recover(Lien $link){
+           $link->restore();
+           return redirect()->back();
     }
 
 }

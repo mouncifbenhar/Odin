@@ -56,4 +56,10 @@ class User extends Authenticatable
     public function tags(){
         return $this->hasMany(Tag::class,'user_id');
     }
+    public function role(){
+        return $this->belongsToMany(Role::class,'user_role');
+    }
+    public function sherd(){
+        return $this->belongsToMany(line::class,'user_link')->withPivot('access_type');
+    }
 }

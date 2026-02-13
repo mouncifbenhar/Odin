@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-       
-      Schema::create('link_tag', function (Blueprint $table) {
-      $table->foreignId('lien_id')->constrained('liens')->onDelete('CASCADE');
-      $table->foreignId('tag_id')->constrained('tags')->onDelete('CASCADE');
-      
-    });
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id();
+            $table->string('role');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -24,7 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('link_tag');
+        Schema::dropIfExists('roles');
     }
 };
-

@@ -7,7 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 text-gray-800 p-6">
-
+      @can('view', $lien)
+          
     <form action="/assign_tag_to_link/{{$lien->id}}" method="POST" class="mb-6 space-y-2">
         @csrf
 
@@ -26,6 +27,24 @@
         <input type="submit" value="add"
                class="border px-3 py-1 text-sm cursor-pointer">
     </form>
+    <br>
+    <h1 class="text-sm font-semibold mb-2">sherd link</h1>
+    <form action="/sherd/{{$lien->id}}" method="POST">
+        @csrf
+         <select name="user_id" class="border px-2 py-1 text-sm">
+            @forelse ($sherdusers as $user)
+                <option value="{{$user->id}}">{{$user->name}}</option>
+            @empty
+                <option>there is no users</option>
+            @endforelse
+        </select>
+         <select name="per" class="border px-2 py-1 text-sm">
+               <option value="1">viewr</option>
+               <option value="2">editer</option>
+        </select>
+
+        <input type="submit" value="sherd">
+    </form>
 
     <h1 class="text-sm font-semibold mb-2">link tags</h1>
 
@@ -35,5 +54,17 @@
         <p class="text-sm text-gray-500">empty</p>
     @endforelse
 
+   
+
+
+
+
+
+
+
+@endcan
+@cannot('view', $lien)
+    <p>no no</p>
+@endcannot
 </body>
 </html>
